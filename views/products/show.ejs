@@ -1,0 +1,158 @@
+<% layout('layouts/boilerplate') %> 
+<div class="container">
+    <div class="row">
+        <div class="col-xxl-3 col-xl-3 col-lg-6 mt-3">
+            <div class="card shadow p-3  bg-body rounded">
+                <div class="card-body">
+                    <h5 class="card-title">Category</h5>
+                    <h6 class="card-subtitle mb-2"><%= product.category %> </h6>
+                    <p class="card-text"><%= product.description %></p>
+                    <h5 class="card-title">Brands</h5>
+                    <a href="" class="removeUnderLine"><p class="card-text"><%= product.brand %></p></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-4 col-xl-5 col-lg-6 mt-3">
+            <div class="card shadow p-3  bg-body rounded">
+                <img src="<%= product.images %>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><%= product.name %></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><%= product.category%></li>
+                    <li class="list-group-item"><%= product.weight %>g </li>
+                    <li class="list-group-item">Rating: <%= product.rating %></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xxl-4 col-xl-4 col-lg-12 mt-3">
+            <div class="card shadow p-3 mb-3 bg-body rounded">
+                <a href="" class="removeUnderLine"><h5 class="card-header"><%= product.brand %></h5></a>
+                <div class="card-body">
+                    <h4 class="card-title"><%= product.name %></h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><%= product.price %>$ Per: <%= product.weight %>g</li>
+                        <li class="list-group-item">Rating: <%= product.rating %></li>
+                    </ul>
+                </div>
+                <a href="#" id="basketBtn" class="btn btn-success">ADD TO BASKET</a>
+            </div>
+        </div>
+    </div>
+    <figure>
+        <blockquote class="blockquote">
+            <p><%= product.name %></p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            <%= product.brand %>
+        </figcaption>
+    </figure>
+<!-- buttons -->
+    <div class="row">
+        <div class="col-3">
+            <div class="row">
+                <div class="col-4">
+                    <a href="/" class="btn btn-primary">Back</a>
+                </div>
+                <div class="col-4">
+                    <a href="/products/<%=product._id%>/edit " class="btn btn-info">Edit</a>
+                </div>
+                <div class="col-4">
+                    <form action="/products/<%=product._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Write A Review -->
+    <div class="text-success">
+        <hr>
+    </div>
+    <div>
+        <h4 class="mb-3">Rating and Reviews</h4>
+            <!-- Displaying Reviews -->
+        <%for(let review of product.reviews) {%> 
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Rating: <%= review.rating%></h5>
+                    <p class="card-text text-muted">Review: <%= review.body%></p>
+                    <form action="/products/<%=product._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div> 
+        <%}%> 
+        <form action="/products/<%=product._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
+            <!-- https://getbootstrap.com/docs/5.2/forms/range/ -->
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <input type="range" class="form-range" min="1" max="5" name="review[rating]" id="rating">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="body">Review</label>
+                <textarea class="form-control" name="review[body]" id="body" cols="30" rows="4" required></textarea>
+            </div>
+            <button class="btn btn-success" >Submit</button>
+        </form>
+
+    </div>
+        
+    <div class="text-success">
+        <hr>
+    </div>
+    <div>
+        <p class="lead text-muted"><strong>About the Product</strong></p>
+        <p class="text-muted"><em>Fresho brings to you an exquisite range of locally grown organic tomatoes, which are now available at bigbasket. These organic tomatoes are free from harmful pesticides and insecticides and thus have a very natural and tangy taste, which is attributed to its healthy soil growth. The ripe and firm tomatoes are a luscious addition to any meal.</em></p>
+    </div>
+    <div class="text-success">
+        <hr>
+    </div>
+    <div>
+        <p class="lead text-muted"><strong>Benefits</strong></p>
+        <p class="text-muted"><em>Organic tomatoes are free from harmful chemicals and toxins, plus they are also rich in antioxidants that helps fight diseases like cancer. It also a healthy source of Vitamin C and A (being rich in beta-carotene) along with niacin and folate.</em></p>
+    </div>
+    <div class="text-success">
+        <hr>
+    </div>
+    <div>
+        <p class="lead text-muted"><strong>How to Use</strong></p>
+        <p class="text-muted"><em>Tomatoes can be sliced up and used in salads or eaten on their own. You can boil and puree them for pasta sauces, stews, soups or even Pizza (works well with herbs like basil). You can scoop their interiors and stuff it veggies or meat to make stuffed tomatoes and bake them in the oven.</em></p>
+    </div>
+    <div class="text-success">
+        <hr>
+    </div>
+    <div>
+        <p class="lead text-muted"><strong>Variable weight policy</strong></p>
+        <p class="text-muted"><em>Please note that the item(s) in this product may vary slightly in size and weight. Hence, the actual weight of the product delivered can have a small variance. You will be billed based on the actual weight during order processing.</em></p>
+    </div>
+    <div class="text-success">
+        <hr>
+    </div>
+
+    <h5>Frequently Bought</h5>
+    <div class="row">
+        <% for( let product of products) {%>
+            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-xs-12 mb-3 mt-3"><a href="<%= product._id %> " class="removeUnderLine">
+                <div class="card shadow p-3 mb-3 bg-body rounded" style="width: 18rem;">
+                    <img src="<%= product.images %>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= product.name %></h5>
+                        <p class="card-text muted-text" style="color:#ff7575;"><%= product.brand %></p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><%= product.category%></li>
+                        <li class="list-group-item"><%= product.price %>$ Per <%= product.weight %>g</li>
+                        <li class="list-group-item">Rating: <%= product.rating %></li>
+                    </ul>
+                    <!-- <div class="card-body">
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div> -->
+                </div></a>
+            </div>
+        <%}%>
+    </div>
+
+</div>

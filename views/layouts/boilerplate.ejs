@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoping Market</title>
+    <link rel="icon" type="image/x-icon" href="images/fav.jpg">
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <script src="javascript/jquery.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body class="container d-flex flex-column vh-100">
+    <%- include('../partials/navbar')  %> 
+
+
+    <main class="container mt-5"> <!-- mt-5 => margin top: 5 -->
+        <!-- %- include('../partials/flash') %>  -->
+        <%- body %> 
+    </main>
+
+
+    <%- include('../partials/footer')  %> 
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+
+
+
+
+
+    
+    <!-- Form Validation -->
+    <script>
+        // copy this from Bootstrap page => https://getbootstrap.com/docs/5.2/forms/validation/
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.validated-form')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+            }, false)
+        })
+        })()
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+li .dropdown-item {
+    display: unset;
+}
+
+ul .dropdown-menu {
+    --bs-dropdown-border-radius: 0.rem;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+.dropdown-menu{
+    margin-top: 0;
+}
+
+.removeUnderLine {
+    text-decoration: none;
+    color: black;
+}
+
+.card-text {
+    color: #787878;
+}
+
+#basketBtn {
+    border-radius:0% ;
+}
+
+#socialList {
+    padding-left: 0;
+}
+#socialList li {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    padding-left: 0;
+}
+
+#socialIcons {
+    width: 40px;
+    height: 40px;
+}
+
+.footerText h6 {
+    color: #5a53bb;
+}
+.footerText a {
+    text-decoration: none;
+    color: #787878;
+}
+
+.footerList ul {
+    list-style-type: none;
+    padding-left: 0rem;
+}
