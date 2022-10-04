@@ -1,5 +1,4 @@
 const Product = require('../models/product');
-const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
     const products = await Product.find({});

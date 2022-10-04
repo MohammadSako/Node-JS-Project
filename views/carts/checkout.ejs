@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate') %> 
+<link rel="stylesheet" href="/stylesheet/stars.css">
+
+<div class="row">
+    <div class="col-6 offset-3 mt-5">
+        <h1>Checkout</h1>
+        <h4>Total:  <%= session.cart.totalPrice %>$</h4>
+        <form action="#" method="POST" novalidate class="validated-form">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input class="form-control" type="text" id="name" placeholder="Name" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input class="form-control" type="text" id="address" placeholder="Address" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="card_owner_name" class="form-label">Card Owner Name</label>
+                <input class="form-control" type="text" id="card_owner_name" placeholder="Card Owner Name" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="credit_card_number" class="form-label">Credit Card Number</label>
+                <input class="form-control" type="number" id="credit_card_number" placeholder="Credit Card Number" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label for="month" class="form-label">Expiration Month</label>
+                    <input class="form-control" type="month" id="month" placeholder="Expiration Month" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="year" class="form-label">Expiration Year</label>
+                    <input class="form-control" type="number" id="year" placeholder="Expiration Year" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="card-cvc" class="form-label">CVC</label>
+                <input class="form-control" type="number" id="card-cvc" placeholder="CVC" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Buy Now</button>
+            <a href="/carts/shoppingcart" class="btn btn-primary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+
+<!-- 
+    <script src="https://js.stripe.com/v3/" async></script>
+<script src="javascript/checkout.js" ></script>

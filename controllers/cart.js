@@ -1,5 +1,6 @@
 const Cart = require('../models/cart');
 const Product = require('../models/product');
+const { cloudinary } = require('../cloudinary');
 
 //contact index
 module.exports.index = async (req, res) => {
@@ -15,24 +16,55 @@ module.exports.addToCart = async (req, res, next) => {
             return res.redirect('/products');
         }
         cart.add(product, product.id);
+        // console.log(product);
         req.session.cart = cart;
-        console.log(req.session.cart);
+        req.flash('success', 'Successfully Item Added')
         res.redirect('/products');
     });
 }
 
+module.exports.reduce = async (req, res) => {
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.reduceByOne(productId);
+    req.session.cart = cart;
+    res.redirect('/carts/shoppingcart');
+}
 
-module.exports.shoppingCart = async (req, res, next) => {
-   
+module.exports.decrease = async (req, res) => {
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.decreaseByOne(productId);
+    req.session.cart = cart;
+    res.redirect('/carts/shoppingcart');
+}
+
+module.exports.remove = async (req, res) => {
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.removeItem(productId);
+    req.session.cart = cart;
+    res.redirect('/carts/shoppingcart');
+}
+
+module.exports.shoppingCart = async (req, res) => {
     if(!req.session.cart) {
         return res.render('carts/shoppingcart', {Product: null});
     }
-
     const cart = new Cart(req.session.cart);
-
     res.render('carts/shoppingcart', {
         Product: cart.generateArray(), 
         totalPrice: cart.totalPrice
     });
-
 }
+
+module.exports.checkoutCart = async (req, res) => {
+    if(!req.session.cart) {
+        return res.render('carts/checkout');
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('carts/checkout', {totalPrice: cart.totalPrice});
+}
+
+
+

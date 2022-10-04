@@ -1,9 +1,14 @@
-.cart svg {
-    color:rgb(108, 108, 108);
+.cart svg{
+    color: #6662a3;
     margin-right: 12px;
 }
-.cart svg:hover {
-    color:rgb(255, 255, 255);
+.cart svg:hover{
+    color:rgb(249, 249, 249);
+}
+
+.cart a .btn:first-child:active {
+    border-color: #c3d8ff;
+    color: #c3d8ff;
 }
 
 

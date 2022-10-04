@@ -39,11 +39,11 @@
                 </div>
     
                 <div class="card-body">
-                    <h5 class="card-title"><%= product.name %></h5>
+                    <h5 class="card-title"><span style="color: red;"><%= product.name %></span></h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><%= product.category%></li>
-                    <li class="list-group-item"><span style="color: red;"><%= product.weight %></span><i> g</i></li>
+                    <li class="list-group-item"><span style="color: red;"><%= product.price %> </span>JD, <i> per</i> <span style="color: red;"><%= product.weight %></span><i> g</i></li>
                 </ul>
             </div>
         </div>
@@ -51,9 +51,9 @@
             <div class="card shadow p-3 mb-3 bg-body rounded">
                 <a href="" class="removeUnderLine"><h5 class="card-header"><%= product.brand %></h5></a>
                 <div class="card-body">
-                    <h5 class="card-title"><%= product.name %></h5>
+                    <h5 class="card-title"><span style="color: red;"><%= product.name %></h5>
                     <p>
-                        <h4><%= product.price %>$</h4> <h6>Per: <span style="color: red;"><%= product.weight %></span><i> g</i></h6>
+                        <h4><%= product.price %> JD</h4> <h6>Per: <span style="color: red;"><%= product.weight %></span><i> g</i></h6>
                     </p>
                     <p class="starability-result" data-rating="<%=product.rating %>">
                         Rated: <%=product.rating%>  
@@ -61,11 +61,7 @@
                 </div>
 
                 <!-- add to cart -->
-                <form input action="/add-to-cart" method="POST">
-                    <input type="hidden" name="id" value="">
-                    <button class="btn btn-success">Add to cart</button>
-                </form>
-                
+                <a href="/add-to-cart/<%= product._id %>"><button class="btn btn-success">Add to cart</button></a>
             </div>
         </div>
     </div>

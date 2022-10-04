@@ -77,7 +77,6 @@ app.use((req, res, next) => {
 
 
 
-
 app.use('/', userRoutes);
 app.use('/', productRoutes);
 app.use('/', pageRoutes); //(footer Links) => contact US, FAQs, About US..
