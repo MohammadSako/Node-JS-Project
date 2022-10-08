@@ -20,7 +20,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize');
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 
 //Paypal
 const paypal = ('/public/javascript/paypalapi.js');
@@ -28,9 +28,7 @@ const paypal = ('/public/javascript/paypalapi.js');
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/shoppingMarket';
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
-    // useCreateIndex: true,// maybe not supported..
     useUnifiedTopology: true,
-    // useFindAndModify: false// maybe not supported..
 });
 
 const db = mongoose.connection;
