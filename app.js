@@ -20,13 +20,19 @@ const passport = require('passport');
 const localStrategy = require('passport-local');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize');
+const MongoStore = require('connect-mongo')(session);
 
+//Paypal
+const paypal = ('/public/javascript/paypalapi.js');
 
-
-mongoose.connect('mongodb://localhost:27017/shoppingMarket', {
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/shoppingMarket';
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    // useCreateIndex: true,// maybe not supported..
+    useUnifiedTopology: true,
+    // useFindAndModify: false// maybe not supported..
 });
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -36,16 +42,27 @@ db.once("open", () => {
 app.engine('ejs', ejsMate); // for SPA => (body) boilerpalte
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));//To let run the server from Any directory
-
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))//serving things like CSS, JS, and Bootstrap
+app.use(mongoSanitize({replaceWith: '_',}),);
 
-app.use(mongoSanitize());
+const secret = process.env.SECRET || 'mysecretcode';
+
+const store = new MongoStore({
+  url: dbUrl,
+  secret,
+  touchAfter: 24 * 60 * 60 //update after 24 hours automatically..
+});
+store.on("error", function (e) {
+  console.log('Session store has an Error!!', e)
+})// if it has an Error..
 
 // Configuring Express-Session
 const sessionConfig = {
-    secret: 'session',
+    store,
+    name: 'session', //(569)
+    secret,
     resave: false,
     saveUninitialized: true,
     // store: new connectMongo({ mongooseConnection: mongoose.connection }),//cart
@@ -100,6 +117,27 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err })
 })
 
-app.listen(8080, () => {
-    console.log("Waiting on Port 8080")
+// //////// Paypal Method /////////
+app.post("/api/orders", async (req, res) => {
+    try {
+      const order = await paypal.createOrder();
+      res.json(order);
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+  });
+  
+  app.post("/api/orders/:orderID/capture", async (req, res) => {
+    const { orderID } = req.params;
+    try {
+      const captureData = await paypal.capturePayment(orderID);
+      res.json(captureData);
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+  });
+
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+    console.log(`Waiting on Port ${port}`)
 })

@@ -17,6 +17,7 @@ router.get('/decrease/:id', cart.decrease);
 router.get('/reduce/:id', cart.reduce);
 
 router.get('/remove/:id', cart.remove);
+router.get('/removenav/:id', cart.removeNav);
 
 router.get('/checkout', cart.checkoutCart);
 

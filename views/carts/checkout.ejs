@@ -1,71 +1,89 @@
 <% layout('layouts/boilerplate') %> 
 <link rel="stylesheet" href="/stylesheet/stars.css">
 
+
+
 <div class="row">
-    <div class="col-6 offset-3 mt-5">
-        <h1>Checkout</h1>
-        <h4>Total:  <%= session.cart.totalPrice %>$</h4>
-        <form action="#" method="POST" novalidate class="validated-form">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input class="form-control" type="text" id="name" placeholder="Name" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <input class="form-control" type="text" id="address" placeholder="Address" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="card_owner_name" class="form-label">Card Owner Name</label>
-                <input class="form-control" type="text" id="card_owner_name" placeholder="Card Owner Name" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="credit_card_number" class="form-label">Credit Card Number</label>
-                <input class="form-control" type="number" id="credit_card_number" placeholder="Credit Card Number" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 mb-3">
-                    <label for="month" class="form-label">Expiration Month</label>
-                    <input class="form-control" type="month" id="month" placeholder="Expiration Month" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-                <div class="col-6 mb-3">
-                    <label for="year" class="form-label">Expiration Year</label>
-                    <input class="form-control" type="number" id="year" placeholder="Expiration Year" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="card-cvc" class="form-label">CVC</label>
-                <input class="form-control" type="number" id="card-cvc" placeholder="CVC" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <button type="submit" class="btn btn-success">Buy Now</button>
-            <a href="/carts/shoppingcart" class="btn btn-primary">Cancel</a>
-        </form>
+    <h1 class="col-12 offset-1 mb-3">Checkout</h1>
+    <% if(session.cart) { %>
+    <div class="col-6 offset-1">
+        <hr>
+        <% if(currentUser){%>
+        <div class="col-12">
+            <h6><strong>Username:</strong> <%= currentUser.username %></h6>
+            <h6><strong>Email:</strong> <%= currentUser.email %></h6>
+            <hr>
+        </div>
+        <% } %>
+        <div class="col-12">
+            <h4 class="mb-3">Payment Method</h4>
+            <div id="paypal-button-container"></div>
+        </div>
     </div>
+    <div class="col-4 offset-1">
+        <div class="card p-2">
+            <div class="card-body">
+                <h4 class="card-title">Shipping Cart</h4>
+                <div class="row">
+                <div class="col-9">
+                    <p>Subtotal</p>
+                </div>
+                <div class="col-3">
+                    <p><%= session.cart.totalPrice %></p>
+                </div>
+                
+                <div class="col-9">
+                    <p>Shipping Fee</p>
+                </div>
+                <div class="col-3">
+                    <p><span style="color: red;">Free</span></p>
+                </div>
+                <div class="col-9">
+                    <p>Services</p>
+                </div>
+                <div class="col-3">
+                    <p><span style="color: red;">2</span> JD</p>
+                </div>
+                <div class="col-9">
+                    <h5>Order Total</h5>
+                </div>
+                <div class="col-3 mb-3">
+                    <h5><%= session.cart.totalPrice + 2 %></h5>
+                </div>
+                <hr>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">ITEM</th>
+                            <th scope="col"></th>
+                            <th scope="col">QTY</th>
+                            <th scope="col">PRICE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for( let product of Product) { %>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><%= product.item.name %></td>
+                            <td><%= product.qty %></td>
+                            <td><%= product.item.price %> JD</td>
+                        </tr>
+                        <% } %> 
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } else { %>
+        <hr>
+        <div class="row">
+            <div class="col-12  offset-1">
+                <h3>The Cart is Empty</h3>
+            </div>
+        </div>
+    <% } %> 
 </div>
+<script src="/javascript/paypal.js"></script>
 
 
-<!-- 
-    <script src="https://js.stripe.com/v3/" async></script>
-<script src="javascript/checkout.js" ></script>

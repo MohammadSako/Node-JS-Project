@@ -47,6 +47,14 @@ module.exports.remove = async (req, res) => {
     res.redirect('/carts/shoppingcart');
 }
 
+module.exports.removeNav = async (req, res) => {
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.removeItem(productId);
+    req.session.cart = cart;
+    res.redirect('/products');
+}
+
 module.exports.shoppingCart = async (req, res) => {
     if(!req.session.cart) {
         return res.render('carts/shoppingcart', {Product: null});
@@ -60,10 +68,10 @@ module.exports.shoppingCart = async (req, res) => {
 
 module.exports.checkoutCart = async (req, res) => {
     if(!req.session.cart) {
-        return res.render('carts/checkout');
+        return res.render('carts/checkout', {Product: null});
     }
     const cart = new Cart(req.session.cart);
-    res.render('carts/checkout', {totalPrice: cart.totalPrice});
+    res.render('carts/checkout', {Product: cart.generateArray(),totalPrice: cart.totalPrice});
 }
 
 

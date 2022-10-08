@@ -1,8 +1,18 @@
 const Product = require('../models/product');
+const Cart = require('../models/cart');
 
 module.exports.index = async (req, res) => {
     const products = await Product.find({});
-    res.render('products/index', { products });
+
+    if(!req.session.cart) {
+        return res.render('products/index', { products, Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('products/index', {
+        products,
+        Product: cart.generateArray(), 
+        totalPrice: cart.totalPrice
+    });
 }
 
 module.exports.renderNewForm = (req, res) => {
