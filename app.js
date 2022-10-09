@@ -1,7 +1,6 @@
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+  require('dotenv').config();
 }
-
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -27,14 +26,14 @@ const paypal = ('/public/javascript/paypalapi.js');
 
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/shoppingMarket';
 mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
-    console.log("Database is connected..");
+  console.log("Database is connected..");
 });
 
 app.engine('ejs', ejsMate); // for SPA => (body) boilerpalte
@@ -44,34 +43,34 @@ app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))//serving things like CSS, JS, and Bootstrap
 app.use(mongoSanitize({
-  replaceWith: '_',
+replaceWith: '_',
 }),);
 
 const secret = process.env.SECRET || 'mysecretcodes';
 
 const store = MongoStore.create({
-  mongoUrl: dbUrl,
-  secret,
-  touchAfter: 24 * 60 * 60 //update after 24 hours automatically..
+mongoUrl: dbUrl,
+secret,
+touchAfter: 24 * 60 * 60 //update after 24 hours automatically..
 });
 
 store.on("error", function (e) {
-  console.log('Session store has an Error!!', e)
+console.log('Session store has an Error!!', e)
 })// if it has an Error..
 
 // Configuring Express-Session
 const sessionConfig = {
-    store,
-    name: 'session', //(569)
-    secret,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        secure: true, //only when deploying 
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
+  store,
+  name: 'session', //(569)
+  secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      httpOnly: true,
+      secure: true, //only when deploying 
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+      maxAge: 1000 * 60 * 60 * 24 * 7
+  }
 }
 app.use(session(sessionConfig))
 app.use(flash())
@@ -85,11 +84,12 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
-    res.locals.session = req.session;//cart
-    next();
+  res.locals.currentUser = req.user;
+  
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  res.locals.session = req.session;//cart
+  next();
 })
 
 
@@ -102,42 +102,42 @@ app.use('/', cartRoutes);
 
 
 app.get('/', (req, res) => {
-    res.render('home')
+  res.render('home')
 });
 
 //Defining ExpressError Class
 app.all('*', (req, res, next) => {
-    next(new ExpressError('Page not Found!!!', 404))
+  next(new ExpressError('Page not Found!!!', 404))
 })
 
 //Page not found!!!
 app.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    if (!err.message) err.message = 'There is something wrong!!'
-    res.status(statusCode).render('error', { err })
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = 'There is something wrong!!'
+  res.status(statusCode).render('error', { err })
 })
 
 // //////// Paypal Method /////////
 app.post("/api/orders", async (req, res) => {
-    try {
-      const order = await paypal.createOrder();
-      res.json(order);
-    } catch (err) {
-      res.status(500).send(err.message);
-    }
-  });
-  
-  app.post("/api/orders/:orderID/capture", async (req, res) => {
-    const { orderID } = req.params;
-    try {
-      const captureData = await paypal.capturePayment(orderID);
-      res.json(captureData);
-    } catch (err) {
-      res.status(500).send(err.message);
-    }
-  });
+  try {
+    const order = await paypal.createOrder();
+    res.json(order);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+app.post("/api/orders/:orderID/capture", async (req, res) => {
+  const { orderID } = req.params;
+  try {
+    const captureData = await paypal.capturePayment(orderID);
+    res.json(captureData);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Server is Ready on Port ${port}`)
+  console.log(`Server is Ready on Port ${port}`)
 });
