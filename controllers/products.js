@@ -60,7 +60,11 @@ module.exports.renderEditForm = async (req, res) => {
         req.flash('error', 'Product not found!!!');
         return res.redirect('/products');
     }
-    res.render('products/edit', { product });
+    if(!req.session.cart) {
+        return res.render('products/edit', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('products/edit', { product, Product: cart.generateArray(),totalPrice: cart.totalPrice });
 }
 module.exports.updateProduct = async (req, res) => {
     const { id } = req.params;
@@ -87,6 +91,6 @@ module.exports.deleteProduct = async (req, res) => {
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
     req.flash('success', 'A Product Successfully Deleted..')
-    res.redirect(`/`)
+    res.redirect(`/products`)
 }
 
