@@ -2,12 +2,19 @@ const Contact = require('../models/contact');
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken }); 
+const Cart = require('../models/cart');
+
 // const { cloudinary } = require('../cloudinary');
 
 //contact index
 module.exports.contact = async (req, res) => {
     const contacts = await Contact.find({});
-    res.render('pages/contact/index', {contacts})
+    if(!req.session.cart) {
+        return res.render('pages/contact/index', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('pages/contact/index', {contacts, Product: cart.generateArray(),totalPrice: cart.totalPrice});
+
 }
 
 //contact create page

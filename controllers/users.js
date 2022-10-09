@@ -1,7 +1,12 @@
 const User = require('../models/user')
+const Cart = require('../models/cart');
 
 module.exports.renderRegister = (req, res) => {
-    res.render('users/register');
+    if(!req.session.cart) {
+        return res.render('users/register', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('users/register', {Product: cart.generateArray(),totalPrice: cart.totalPrice});
 }
 
 module.exports.register = async (req, res) => {
@@ -21,7 +26,11 @@ module.exports.register = async (req, res) => {
 }
 
 module.exports.renderLogin = (req, res) => {
-    res.render('users/login');
+    if(!req.session.cart) {
+        return res.render('users/login', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('users/login', {Product: cart.generateArray(),totalPrice: cart.totalPrice});
 }
 
 module.exports.login = (req, res) => {
