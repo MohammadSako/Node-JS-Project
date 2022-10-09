@@ -11,16 +11,16 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const ExpressError = require('./utility/ExpressError');
 const methodOverride = require('method-override');
+const passport = require('passport');
+const localStrategy = require('passport-local');
+const User = require('./models/user');
+const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users')
 const productRoutes = require('./routes/products');
 const reviewRoutes = require('./routes/reviews');
 const pageRoutes = require('./routes/pages');
 const cartRoutes = require('./routes/cart');
-const passport = require('passport');
-const localStrategy = require('passport-local');
-const User = require('./models/user');
-const mongoSanitize = require('express-mongo-sanitize');
-const MongoStore = require("connect-mongo")(session);
+const MongoStore = require('connect-mongo');
 
 //Paypal
 const paypal = ('/public/javascript/paypalapi.js');
@@ -43,15 +43,18 @@ app.set('views', path.join(__dirname, 'views'));//To let run the server from Any
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))//serving things like CSS, JS, and Bootstrap
-app.use(mongoSanitize({replaceWith: '_',}),);
+app.use(mongoSanitize({
+  replaceWith: '_',
+}));
 
-const secret = process.env.SECRET || 'mysecretcode';
+const secret = process.env.SECRET || 'mysecretcodes';
 
-const store = new MongoStore({
-  url: dbUrl,
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
   secret,
   touchAfter: 24 * 60 * 60 //update after 24 hours automatically..
 });
+
 store.on("error", function (e) {
   console.log('Session store has an Error!!', e)
 })// if it has an Error..
@@ -63,10 +66,9 @@ const sessionConfig = {
     secret,
     resave: false,
     saveUninitialized: true,
-    // store: new connectMongo({ mongooseConnection: mongoose.connection }),//cart
     cookie: {
         httpOnly: true,
-        // secure: true, //only when deploying 
+        secure: true, //only when deploying 
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -137,5 +139,5 @@ app.post("/api/orders", async (req, res) => {
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Waiting on Port ${port}`)
-})
+    console.log(`Server is Ready on Port ${port}`)
+});
