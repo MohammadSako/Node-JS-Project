@@ -45,7 +45,7 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))//serving things like CSS, JS, and Bootstrap
 app.use(mongoSanitize({
   replaceWith: '_',
-}));
+}),);
 
 const secret = process.env.SECRET || 'mysecretcodes';
 
