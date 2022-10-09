@@ -16,7 +16,11 @@ module.exports.index = async (req, res) => {
 }
 
 module.exports.renderNewForm = (req, res) => {
-    res.render('products/new');
+    if(!req.session.cart) {
+        return res.render('products/new', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('products/new', {Product: cart.generateArray(),totalPrice: cart.totalPrice});
 }
 
 module.exports.createProduct = async (req, res) => {
@@ -42,7 +46,11 @@ module.exports.showProduct = async (req, res) => {
         req.flash('error', 'Product not found!!!');
         return res.redirect('/products');
     }
-    res.render('products/show', { product, products });
+    if(!req.session.cart) {
+        return res.render('products/show', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('products/show', { product, products, Product: cart.generateArray(),totalPrice: cart.totalPrice });
 }
 
 module.exports.renderEditForm = async (req, res) => {
