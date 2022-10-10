@@ -34,7 +34,7 @@ module.exports.createProduct = async (req, res) => {
 
 // When click on a product to show it in a its page 
 module.exports.showProduct = async (req, res) => {
-    const products = await Product.find({});
+    const freqProducts = await Product.find({});
     const product = await Product.findById(req.params.id).populate({
         path:'reviews',
         populate: {
@@ -46,11 +46,13 @@ module.exports.showProduct = async (req, res) => {
         req.flash('error', 'Product not found!!!');
         return res.redirect('/products');
     }
+
     if(!req.session.cart) {
         return res.render('products/show', {Product: null});
     }
     const cart = new Cart(req.session.cart);
-    res.render('products/show', { product, products, Product: cart.generateArray(),totalPrice: cart.totalPrice });
+    
+    res.render('products/show', { product, freqProducts, Product: cart.generateArray(),totalPrice: cart.totalPrice });
 }
 
 module.exports.renderEditForm = async (req, res) => {
