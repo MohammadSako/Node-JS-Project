@@ -21,7 +21,11 @@ module.exports.contact = async (req, res) => {
 
 //contact create page
 module.exports.renderNewContact = (req, res) => {
-    res.render('pages/contact/new');
+    if(!req.session.cart) {
+        return res.render('pages/contact/new', {contacts, Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('pages/contact/new', {Product: cart.generateArray(),totalPrice: cart.totalPrice});
 }
 module.exports.createContact = async (req, res) => {
     const geoData = await geocoder.forwardGeocode({
