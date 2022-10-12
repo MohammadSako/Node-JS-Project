@@ -8,10 +8,7 @@
             </div>
             <div id="cluster-map"></div>
 
-            <div class="text-success">
-                <hr>
-            </div>
-            <div class="accordion" id="accordionExample">
+            <div class="accordion mt-3" id="accordionExample">
                 <% for( let contact of contacts) {%>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading<%= contact._id %>">
@@ -51,7 +48,7 @@
             <% if(currentUser) {%> 
                 <a href="/contact/new"><button class="btn btn-success mt-3">Add A New Contact</button></a>
                 <% } else { %>
-                <a href="/login"><em>Login to Create or Edit Contact</em></a>    
+                <h5 class="mt-2"><a href="/login"><em>Login to Create or Edit Contact</em></a></h5>    
             <% } %> 
         </div>
     </div>
