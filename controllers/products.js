@@ -46,14 +46,12 @@ module.exports.showProduct = async (req, res) => {
         req.flash('error', 'Product not found!!!');
         return res.redirect('/products');
     }
-    if (req.session.cart) {
-        const cart = new Cart(req.session.cart);
-        res.render('products/show', {product, products, Product: cart.generateArray(),totalPrice: cart.totalPrice});
-    } else {
-        res.render('products/show', { product, products});
+    if(!req.session.cart) {
+        return res.render('products/show', {product, products, Product: null});
     }
+    const cart = new Cart(req.session.cart);
+    res.render('products/show', { product, products, Product: cart.generateArray(),totalPrice: cart.totalPrice});
 }
-
 
 module.exports.renderEditForm = async (req, res) => {
     const { id } = req.params;

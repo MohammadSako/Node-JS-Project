@@ -7,7 +7,6 @@ module.exports.index = async (req, res) => {
     res.render('carts/index');
 }
 
-
 module.exports.addToCart = async (req, res, next) => {
     const productId = req.params.id;
     const cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -47,6 +46,7 @@ module.exports.remove = async (req, res) => {
     res.redirect('/carts/shoppingcart');
 }
 
+//remove items from navbar cart
 module.exports.removeNav = async (req, res) => {
     const productId = req.params.id;
     const cart = new Cart(req.session.cart ? req.session.cart : {});

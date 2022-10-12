@@ -9,7 +9,6 @@ const upload = multer({ storage });
 
 // router.get('', catchAsync(products.home));
 router.get('/products', catchAsync(products.index));
-router.get('/products/cart', catchAsync(products.cart));
 router.post('/products', isLoggedIn, upload.array('image'), validateProduct, catchAsync(products.createProduct))
 router.get('/products/new', isLoggedIn, products.renderNewForm);
 router.route('/products/:id')

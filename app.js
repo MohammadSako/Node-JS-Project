@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -10,26 +11,27 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const ExpressError = require('./utility/ExpressError');
 const methodOverride = require('method-override');
-const passport = require('passport');
-const localStrategy = require('passport-local');
-const User = require('./models/user');
-const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users')
 const productRoutes = require('./routes/products');
 const reviewRoutes = require('./routes/reviews');
 const pageRoutes = require('./routes/pages');
 const cartRoutes = require('./routes/cart');
-const MongoStore = require('connect-mongo');
+const passport = require('passport');
+const localStrategy = require('passport-local');
+const User = require('./models/user');
+const mongoSanitize = require('express-mongo-sanitize');
+const MongoStore = require('connect-mongo');//new
 
-//Paypal
-const paypal = ('/public/javascript/paypalapi.js');
-
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/shoppingMarket';
-mongoose.connect(dbUrl, {
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/shoppingMarket';//new
+mongoose.connect(dbUrl, {//new
   useNewUrlParser: true,
   useUnifiedTopology: true
-});
+})
 
+// mongoose.connect('mongodb://localhost:27017/shoppingMarket', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -42,26 +44,22 @@ app.set('views', path.join(__dirname, 'views'));//To let run the server from Any
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))//serving things like CSS, JS, and Bootstrap
-app.use(mongoSanitize({
-replaceWith: '_',
-}),);
+app.use(mongoSanitize({replaceWith: '_',}),);
 
-const secret = process.env.SECRET || 'mysecretcodes';
-
-const store = MongoStore.create({
-mongoUrl: dbUrl,
-secret,
-touchAfter: 24 * 60 * 60 //update after 24 hours automatically..
-});
-
-store.on("error", function (e) {
-console.log('Session store has an Error!!', e)
-})// if it has an Error..
+const secret = process.env.SECRET || 'mysecretcode';//new
+const store = MongoStore.create({//new
+  mongoUrl: dbUrl,
+  secret,
+  touchAfter: 24 * 60 * 60
+})
+store.on("error", function(e) {//new
+  console.log('Session Store has an Error!!!', e)
+})
 
 // Configuring Express-Session
 const sessionConfig = {
   store,
-  name: 'session', //(569)
+  name: 'session',
   secret,
   resave: false,
   saveUninitialized: true,
@@ -84,6 +82,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
+  console.log(req.query);
   res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
@@ -116,27 +115,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render('error', { err })
 })
 
-// //////// Paypal Method /////////
-app.post("/api/orders", async (req, res) => {
-  try {
-    const order = await paypal.createOrder();
-    res.json(order);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
-
-app.post("/api/orders/:orderID/capture", async (req, res) => {
-  const { orderID } = req.params;
-  try {
-    const captureData = await paypal.capturePayment(orderID);
-    res.json(captureData);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
-});
-
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-  console.log(`Server is Ready on Port ${port}`)
+    console.log(`Server Ready on ${port}..`)
 });

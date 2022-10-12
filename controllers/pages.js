@@ -3,18 +3,20 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken }); 
 const Cart = require('../models/cart');
+const Product = require('../models/product');
+
 
 // const { cloudinary } = require('../cloudinary');
 
 //contact index
 module.exports.contact = async (req, res) => {
     const contacts = await Contact.find({});
+
     if(!req.session.cart) {
-        return res.render('pages/contact/index', {Product: null});
+        return res.render('pages/contact/index', {contacts, Product: null});
     }
     const cart = new Cart(req.session.cart);
-    res.render('pages/contact/index', {contacts, Product: cart.generateArray(),totalPrice: cart.totalPrice});
-
+    res.render('pages/contact/index', {contacts, Product: cart.generateArray(),totalPrice: cart.totalPrice})
 }
 
 //contact create page
