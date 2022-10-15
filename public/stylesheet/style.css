@@ -107,3 +107,8 @@ ul .dropdown-menu {
   }
 
   /*  */
+
+#navfooter li a {
+    margin-left: 30px;
+    color: #6662a3;
+}
