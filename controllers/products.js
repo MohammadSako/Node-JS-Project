@@ -43,7 +43,7 @@ module.exports.showProduct = async (req, res) => {
     }).populate('author');
     // console.log(product);
     if (!product) {
-        req.flash('error', 'Product not found!!!');
+        req.flash('error', 'Product Not Found!!');
         return res.redirect('/products');
     }
     if(!req.session.cart) {
@@ -57,7 +57,7 @@ module.exports.renderEditForm = async (req, res) => {
     const { id } = req.params;
     const product = await Product.findById(id)
     if (!product) {
-        req.flash('error', 'Product not found!!!');
+        req.flash('error', 'Product Not Found!!');
         return res.redirect('/products');
     }
     if(!req.session.cart) {

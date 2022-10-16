@@ -5,12 +5,16 @@
     margin-right: 12px;
 }
 .cart svg:hover{
-    color:rgb(249, 249, 249);
+    color: rgb(246, 85, 85);
 }
 
 .cart a .btn:first-child:active {
-    border-color: #c3d8ff;
+    border-color: #ffffff;
     color: #c3d8ff;
+
+}
+.miniCartInfo {
+    width: 300px;
 }
 
 /* Shopping Cart Page */
@@ -18,6 +22,11 @@
     height: 30px; 
     width: 30px; 
     font-size: 16px;
+}
+
+/* Search */
+#search_nav {
+    border-radius:1.5rem ;
 }
 
 /*  */
