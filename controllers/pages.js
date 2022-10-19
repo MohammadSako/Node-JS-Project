@@ -22,7 +22,7 @@ module.exports.contact = async (req, res) => {
 //contact create page
 module.exports.renderNewContact = (req, res) => {
     if(!req.session.cart) {
-        return res.render('pages/contact/new', {contacts, Product: null});
+        return res.render('pages/contact/new', {Product: null});
     }
     const cart = new Cart(req.session.cart);
     res.render('pages/contact/new', {Product: cart.generateArray(),totalPrice: cart.totalPrice});

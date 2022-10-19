@@ -1,45 +1,46 @@
 <% layout('layouts/boilerplate') %> 
 <link rel="stylesheet" href="/stylesheet/stars.css">
 
-<div class="row">
-    <h1>Add A New Products</h1>
-    <div class="col-6 offset-3 mt-5">
+<div class="container">
+    <div class="row">
+        
+        <h2 class="text-muted">Add A New Products</h2>
         <form action="/products" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
-            <div class="mb-3">
+            <div class="col-md-4 mb-3">
                 <label for="name" class="form-label">Product Name</label>
                 <input class="form-control" type="text" name="product[name]" id="name" placeholder="product name" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="col-md-4 mb-3">
                 <label for="price" class="form-label">Price</label>
                 <input class="form-control" type="number" name="product[price]" id="price" placeholder="product price" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="col-md-4 mb-3">
                 <label for="weight" class="form-label">Weight</label>
                 <input class="form-control" type="number" name="product[weight]" id="weight" placeholder="Weight kg" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-floating col-md-4 mb-3">
                 <textarea class="form-control" type="text" name="product[description]" id="description" placeholder="Write a description" required></textarea>
                 <label for="description" class="form-label">Description</label>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="col-md-4 mb-3">
                 <div class="from-file custom-file">
                     <label for="image" class="form-label">Upload a File</label>
                     <input class="form-control form-control-lg" id="image" type="file" name="image" multiple>
                 </div>
             </div>
-            <div>
+            <div class="col-md-4 mb-3">
                 <fieldset class="starability-basic">
                     <input type="radio" id="no-rate" class="input-no-rate" name="product[rating]" value="1" checked aria-label="No rating." />
                     <input type="radio" id="first-rate1" name="product[rating]" value="1" />
@@ -57,7 +58,7 @@
                     Looks good!
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="col-md-4 mb-3">
                 <label class="form-label" for="brand">Select The Brand</label>
                 <select class="form-select" name="product[brand]" id="brand">
                     <option value="Organic Farm">Organic Farm</option>
@@ -65,7 +66,7 @@
                     <option value="Country Farm">Country Farm</option>
                 </select>
             </div>
-            <div class="mb-3">
+            <div class="col-md-4 mb-3">
                 <label class="form-label" for="category">Select Category</label>
                 <select class="form-select" name="product[category]" id="category">
                     <option value="Fruit">Fruit</option>
