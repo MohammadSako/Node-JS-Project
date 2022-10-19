@@ -17,6 +17,8 @@ router.route('/products/:id')
     .delete(isLoggedIn, catchAsync(products.deleteProduct))
 router.get('/products/:id/edit', isLoggedIn, isAuthor, catchAsync(products.renderEditForm));
 
+// router.get('/search/:id', catchAsync(products.search));
+
 module.exports = router;
 
 //---------------------------

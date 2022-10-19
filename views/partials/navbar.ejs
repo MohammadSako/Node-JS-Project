@@ -101,10 +101,20 @@
                     </div>
                 </div>
             <div>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" id="search_nav" type="search" placeholder="Search" aria-label="Search">
+
+                <form class="d-flex" role="search" action="/products" method="GET">
+                    <input type="text" name="search" placeholder="Search..">
+                    <input type="submit" value="Search" name="" id="">
+                    <!-- <input class="form-control me-2" id="search_nav" type="search" placeholder="Search" aria-label="Search"> -->
                     <!-- <button class="btn btn-outline-primary" type="submit">Search</button> -->
                 </form>
+                <!-- % if(datas){ %>
+                    <section>
+                        % for(let data of datas ) { %>
+                            <p>%= data.name %></p> 
+                        % } %>
+                    </section>
+                % } %>  -->
             </div>
         </div>
     </div>

@@ -87,6 +87,22 @@ module.exports.cart = async (req, res) => {
     res.render('products/cart');
 }
 
+//Search
+// module.exports.search = async (req, res) => {
+//     const data = await Product.find(
+//         {
+//         $or: [
+//             { name: { $regex:req.params.id }}
+//         ]
+//         }
+//     )
+//     const datas = data;
+//     // console.log(req.params.id);
+//     console.log(data);
+//     // res.send(`<h1>${data}</h1>`);
+//     res.render('products/search', {datas});
+// }
+
 module.exports.deleteProduct = async (req, res) => {
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
