@@ -1,67 +1,68 @@
 <% layout('layouts/boilerplate') %> 
-
-<div class="row">
-    <h1>Edit the Product</h1>
-    <div class="col-6 offset-3 mt-5">
-        <form action="/contact/<%=contact._id%>?_method=PUT" method="POST" novalidate class="validated-form">
-            <div class="col-md-4 mb-3">
-                <label class="form-label" for="location">location</label>
-                <input class="form-control" type="text" id="location" name="contact[location]" value="<%= contact.location %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>     
-            <div class="col-md-4 mb-3">
-                <label for="building" class="form-label">Building Number</label>
-                <input class="form-control" type="number" name="contact[building]" id="building"  value="<%= contact.building %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+<div class="container">
+    <h2 class="text-muted mb-3">Edit the Product</h2>
+    <form action="/contact/<%=contact._id%>?_method=PUT" method="POST" novalidate class="row validated-form">
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="location">location</label>
+            <input class="form-control" type="text" id="location" name="contact[location]" value="<%= contact.location %>" required>
+            <div class="valid-feedback">
+                Looks good!
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="street" class="form-label">Street</label>
-                <input class="form-control" type="text" name="contact[street]" id="street"  value="<%= contact.street %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+        </div>     
+        <div class="col-md-4 mb-3">
+            <label for="building" class="form-label">Building Number</label>
+            <input class="form-control" type="number" name="contact[building]" id="building"  value="<%= contact.building %>" required>
+            <div class="valid-feedback">
+                Looks good!
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="city" class="form-label">City</label>
-                <input class="form-control" type="text" name="contact[city]" id="city" value="<%= contact.city %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="street" class="form-label">Street</label>
+            <input class="form-control" type="text" name="contact[street]" id="street"  value="<%= contact.street %>" required>
+            <div class="valid-feedback">
+                Looks good!
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="state" class="form-label">State</label>
-                <input class="form-control" type="text" name="contact[state]" id="state"  value="<%= contact.state %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="city" class="form-label">City</label>
+            <input class="form-control" type="text" name="contact[city]" id="city" value="<%= contact.city %>" required>
+            <div class="valid-feedback">
+                Looks good!
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="country" class="form-label">Country</label>
-                <input class="form-control" type="text" name="contact[country]" id="country"  value="<%= contact.country %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="state" class="form-label">State</label>
+            <input class="form-control" type="text" name="contact[state]" id="state"  value="<%= contact.state %>" required>
+            <div class="valid-feedback">
+                Looks good!
             </div>
-            <div class="col-md-3 mb-3">
-                <label for="zip" class="form-label">Zip</label>
-                <input class="form-control" type="number" name="contact[zip]" id="zip"  value="<%= contact.zip %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input class="form-control" type="text" name="contact[country]" id="country"  value="<%= contact.country %>" required>
+            <div class="valid-feedback">
+                Looks good!
             </div>
-            <div class="col-md-3 mb-3">
-                <label for="tel" class="form-label">Phone</label>
-                <input class="form-control" type="number" name="contact[tel]" id="tel"  value="<%= contact.tel %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="zip" class="form-label">Zip</label>
+            <input class="form-control" type="number" name="contact[zip]" id="zip"  value="<%= contact.zip %>" required>
+            <div class="valid-feedback">
+                Looks good!
             </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="tel" class="form-label">Phone</label>
+            <input class="form-control" type="number" name="contact[tel]" id="tel"  value="<%= contact.tel %>" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div>
             <button class="btn btn-success">Update</button>
             <a href="/contact" class="btn btn-primary">Cancel</a>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
+
+
