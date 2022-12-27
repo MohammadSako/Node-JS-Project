@@ -1,7 +1,18 @@
 const User = require('../models/user')
+<<<<<<< HEAD
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register');
+=======
+const Cart = require('../models/cart');
+
+module.exports.renderRegister = (req, res) => {
+    if(!req.session.cart) {
+        return res.render('users/register', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('users/register', {Product: cart.generateArray(),totalPrice: cart.totalPrice});
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
 }
 
 module.exports.register = async (req, res) => {
@@ -21,7 +32,15 @@ module.exports.register = async (req, res) => {
 }
 
 module.exports.renderLogin = (req, res) => {
+<<<<<<< HEAD
     res.render('users/login');
+=======
+    if(!req.session.cart) {
+        return res.render('users/login', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('users/login', {Product: cart.generateArray(),totalPrice: cart.totalPrice});
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
 }
 
 module.exports.login = (req, res) => {
@@ -39,4 +58,8 @@ module.exports.logout = (req, res, next) => {
         req.flash('success', "You Successfully Logged Out");
         res.redirect('/');
     });
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945

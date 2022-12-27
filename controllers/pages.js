@@ -2,17 +2,41 @@ const Contact = require('../models/contact');
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken }); 
+<<<<<<< HEAD
+=======
+const Cart = require('../models/cart');
+const Product = require('../models/product');
+
+
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
 // const { cloudinary } = require('../cloudinary');
 
 //contact index
 module.exports.contact = async (req, res) => {
     const contacts = await Contact.find({});
+<<<<<<< HEAD
     res.render('pages/contact/index', {contacts})
+=======
+
+    if(!req.session.cart) {
+        return res.render('pages/contact/index', {contacts, Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('pages/contact/index', {contacts, Product: cart.generateArray(),totalPrice: cart.totalPrice})
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
 }
 
 //contact create page
 module.exports.renderNewContact = (req, res) => {
+<<<<<<< HEAD
     res.render('pages/contact/new');
+=======
+    if(!req.session.cart) {
+        return res.render('pages/contact/new', {Product: null});
+    }
+    const cart = new Cart(req.session.cart);
+    res.render('pages/contact/new', {Product: cart.generateArray(),totalPrice: cart.totalPrice});
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
 }
 module.exports.createContact = async (req, res) => {
     const geoData = await geocoder.forwardGeocode({

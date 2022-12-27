@@ -1,0 +1,33 @@
+<button class="btn sticky-top" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+    </svg>
+    Menu
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title" id="offcanvasRightLabel">
+        <a class="navbar-brand" href="/products" style="color: #6662a3;font-weight: 700;">Grocery Shop</a>
+        </h3>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+        <br>
+        <h3><a class="nav-link text-muted" aria-current="page" href="/">Home</a></h3>
+        <h3><a class="nav-link text-muted" aria-current="page" href="/products/new">Add Product</a></h3>
+        <h3><a class="nav-link text-muted" aria-current="page" href="/contact">Contact Us</a></h3>
+        <hr>
+        <br>
+        <% if (!currentUser) {%>
+        <h4><a class="nav-link text-muted" href="/login">Login</a></h4>
+        <h4><a class="nav-link text-muted" href="/register">Register</a></h4>
+        <%} else {%>
+        <h4><a class="nav-link text-muted" href="/logout">Logout</a></h4>
+        <% } %>
+    </div>
+</div>

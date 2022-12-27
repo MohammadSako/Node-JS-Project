@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xxl-3 col-xl-3 col-lg-6 mt-3">
+        <div class="col-xxl-4 col-xl-3 col-lg-6 mt-3">
             <div class="card shadow p-3  bg-body rounded">
                 <div class="card-body">
                     <h5 class="card-title">Category</h5>
@@ -37,27 +37,44 @@
                     </button>
                     <% } %> 
                 </div>
+<<<<<<< HEAD
     
+=======
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
                 <div class="card-body">
-                    <h5 class="card-title"><%= product.name %></h5>
+                    <h5 class="card-title"><span style="color: red;"><%= product.name %></span></h5>
                 </div>
                 <ul class="list-group list-group-flush">
+<<<<<<< HEAD
                     <li class="list-group-item"><%= product.category%></li>
                     <li class="list-group-item"><span style="color: red;"><%= product.weight %></span><i> g</i></li>
+=======
+                    <li class="list-group-item"><h6><%= product.category%></h6></li>
+                    <li class="list-group-item"><h5><span style="color: red;"><%= product.price %> </span>JD</h5></li>
+                    <li class="list-group-item"><i>per</i> <span style="color: red;"><%= product.weight %></span><i> g</i></h6></li>
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
                 </ul>
             </div>
         </div>
         <div class="col-xxl-4 col-xl-4 col-lg-12 mt-3">
-            <div class="card shadow p-3 mb-3 bg-body rounded">
-                <a href="" class="removeUnderLine"><h5 class="card-header"><%= product.brand %></h5></a>
+            <div class="card shadow p-2 mb-3 bg-body rounded">
                 <div class="card-body">
+<<<<<<< HEAD
                     <h5 class="card-title"><%= product.name %></h5>
                     <p>
                         <h4><%= product.price %>$</h4> <h6>Per: <span style="color: red;"><%= product.weight %></span><i> g</i></h6>
+=======
+                    <h4><%= product.brand %></h4>
+                    <hr>
+                    <h5 class="card-title"><span style="color: red;"><%= product.name %></h5>
+                    <p>
+                        <h4><%= product.price %> JD</h4> <h6>Per: <span style="color: red;"><%= product.weight %></span><i> g</i></h6>
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
                     </p>
                     <p class="starability-result" data-rating="<%=product.rating %>">
                         Rated: <%=product.rating%>  
                     </p> 
+<<<<<<< HEAD
                 </div>
 
                 <!-- add to cart -->
@@ -66,7 +83,25 @@
                     <button class="btn btn-success">Add to cart</button>
                 </form>
                 
+=======
+                    <a href="/add-to-cart/<%= product._id %>"><button class="btn btn-success">Add to cart</button></a>
+                </div>
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
             </div>
+            <% if (currentUser && product.author.equals(currentUser._id)) { %> 
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="d-grid gap-2">
+                        <a href="/products/<%=product._id%>/edit " class="btn btn-info">Edit</a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <form action="/products/<%=product._id%>?_method=DELETE" method="POST" class="d-grid gap-2">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% } %> 
         </div>
     </div>
     <figure>
@@ -77,10 +112,11 @@
             <%= product.brand %>
         </figcaption>
     </figure>
-<!-- buttons -->
+    <!-- buttons -->
     <div class="row">
-        <div class="col-3">
+        <div class="col-xxl-3 col-xl-3 col-lg-3 col-xs-12">
             <div class="row">
+<<<<<<< HEAD
                 <div class="col-4">
                     <a href="/products" class="btn btn-primary">Back</a>
                 </div>
@@ -92,12 +128,15 @@
                     <form action="/products/<%=product._id%>?_method=DELETE" method="POST">
                         <button class="btn btn-danger">Delete</button>
                     </form>
+=======
+                <div class="d-grid gap-2">
+                    <a href="/products" class="btn btn-primary btn-lg">Back to Products</a>
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
                 </div>
                 <% } %> 
             </div>
         </div>
     </div>
-
     <!-- Write A Review -->
     <div class="text-success">
     <hr>
@@ -131,8 +170,12 @@
         <% } else { %>
             <a href="/login"><h5 style="margin-bottom: 20px;"><i>Login to Rate & Review</i></h5></a>    
         <% } %> 
+<<<<<<< HEAD
 
             <!-- Displaying Reviews -->
+=======
+        <!-- Displaying Reviews -->
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
         <%for(let review of product.reviews) {%> 
             <div class="card mb-5">
                 <div class="card-body">
@@ -150,8 +193,11 @@
                 </div>
             </div> 
         <%}%>
+<<<<<<< HEAD
 
     
+=======
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
     <div class="text-success">
         <hr>
     </div>
@@ -183,25 +229,36 @@
     <div class="text-success">
         <hr>
     </div>
-
     <h5>Frequently Bought</h5>
     <div class="row">
         <% for( let product of products) {%>
+<<<<<<< HEAD
             <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-xs-12 mb-3 mt-3"><a href="<%= product._id %> " class="removeUnderLine">
                 <div class="card shadow p-3 mb-3 bg-body rounded" style="width: 18rem;">
                     <img src="<%= product.images[0].url %>" class="card-img-top" alt="...">
+=======
+            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3 mt-3"><a href="<%= product._id %> " class="removeUnderLine">
+                <div class="card shadow p-3 mb-3 bg-body rounded mx-auto" style="width: 18rem;">
+                    <img src="<%= product.images[0].url %>" style="height: 200px;" class="card-img-top d-block w-100" alt="...">
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
                     <div class="card-body">
                         <h5 class="card-title"><%= product.name %></h5>
                         <p class="card-text muted-text" style="color:#ff7575;"><%= product.brand %></p>
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush mb-3">
                         <li class="list-group-item"><%= product.category%></li>
                         <li class="list-group-item"><%= product.price %>$ Per <%= product.weight %>g</li>
-                        <li class="list-group-item">Rating: <%= product.rating %></li>
+                        <li class="list-group-item starability-result mt-3 mx-auto" data-rating="<%=product.rating %>">Rating: <%= product.rating %></li>
                     </ul>
+<<<<<<< HEAD
+=======
+                    
+                    <a href="/add-to-cart/<%= product._id %>" class="btn btn-primary" ><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg></a>
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
                 </div></a>
             </div>
         <%}%>
     </div>
-
 </div>

@@ -7,12 +7,14 @@
     <title>Shoping Market</title>
     <link rel="icon" type="image/x-icon" href="images/fav.jpg">
     <link rel="stylesheet" href="/stylesheet/style.css">
+    <link rel="stylesheet" href="/stylesheet/checkout.css">
     <script src="javascript/jquery.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!-- Displaying A Map: (548) -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="/stylesheet/app.css">
+<<<<<<< HEAD
     
 </head>
 </head>
@@ -26,6 +28,33 @@
 
     <%- include('../partials/footer')  %> 
 
+=======
+</head>
+</head>
+<body class="container d-flex flex-column vh-100">
+    
+    <!-- checkout -->
+    <script src="https://js.braintreegateway.com/web/dropin/1.33.4/js/dropin.js"></script>
+    
+    <div class="row">
+        <div class="col-xxl-11 col-xl-11 col-lg-11">
+            <%- include('../partials/navbar')  %> 
+            <main class="container mt-5">
+                <%- include('../partials/flash.ejs') %> 
+                <%- body %> 
+            </main>
+
+        </div>
+        <div class="col-xxl-1 col-xl-1 col-lg-1 d-none d-lg-block mt-2">
+            <%- include('../partials/sidemenu.ejs')  %> 
+        </div>
+    </div>
+    <%- include('../partials/footer')  %>
+    <div class="d-block d-sm-none sticky-bottom">
+        <%- include('../partials/navfooter')  %> 
+    </div>
+    
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>

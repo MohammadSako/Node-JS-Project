@@ -9,7 +9,10 @@ const upload = multer({ storage });
 
 // router.get('', catchAsync(products.home));
 router.get('/products', catchAsync(products.index));
+<<<<<<< HEAD
 router.get('/products/cart', catchAsync(products.cart));
+=======
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
 router.post('/products', isLoggedIn, upload.array('image'), validateProduct, catchAsync(products.createProduct))
 router.get('/products/new', isLoggedIn, products.renderNewForm);
 router.route('/products/:id')
@@ -18,6 +21,11 @@ router.route('/products/:id')
     .delete(isLoggedIn, catchAsync(products.deleteProduct))
 router.get('/products/:id/edit', isLoggedIn, isAuthor, catchAsync(products.renderEditForm));
 
+<<<<<<< HEAD
+=======
+// router.get('/search/:id', catchAsync(products.search));
+
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
 module.exports = router;
 
 //---------------------------

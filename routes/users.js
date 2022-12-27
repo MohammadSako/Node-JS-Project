@@ -7,10 +7,20 @@ const users = require('../controllers/users');
 router.route('/register')
     .get(users.renderRegister)
     .post(catchAsync(users.register))
+<<<<<<< HEAD
 router.route('/login')
     .get(users.renderLogin)
     .post(passport.authenticate('local', {failureFlash:true, failureRedirect:'/login', failureMessage: true, keepSessionInfo: true}), users.login)
 router.get('/logout', users.logout); 
+=======
+    
+router.route('/login')
+    .get(users.renderLogin)
+    .post(passport.authenticate('local', {failureFlash:true, failureRedirect:'/login', failureMessage: true, keepSessionInfo: true}), users.login)
+
+router.get('/logout', users.logout); 
+
+>>>>>>> e55eb9d01a0454a7102e94a72c4c61104ac60945
 module.exports = router;
 
 
