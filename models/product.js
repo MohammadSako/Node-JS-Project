@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 const Review = require('./review');
 const Schema = mongoose.Schema;
+const ImageSchema = new Schema({//https://cloudinary.com/documentation/image_transformations
+    url: String,
+    filename: String
+});
+ImageSchema.virtual('thumbnail').get(function() {
+    return this.url.replace('/upload', '/upload/w_100');
+})
 
 const ProductSchema = new Schema({
     name: String,
@@ -24,13 +31,19 @@ const ProductSchema = new Schema({
     },
     weight: Number,
     rating: Number, 
-    images: String,
+    images: [ImageSchema],
     reviews: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    author:
+    {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    qty: Number,
 })
 
 // Campground Delete Middleware

@@ -11,6 +11,39 @@ mongoose.connect('mongodb://localhost:27017/shoppingMarket')
         console.log(err)
     })
 
+const seedProducts = async () => {
+    await Product.deleteMany({});
+    for (let i = 0; i < 20; i++) {
+        const random10 = Math.floor(Math.random() * 20);
+        const price = Math.floor(Math.random() * 30) + 10;
+        const rate = Math.floor(Math.random() * 6) + 1;
+        const cate = Math.floor(Math.random() * 4) + 1;
+        const camp = new Product({
+            author: '63282e7e1beb349edad11d8c',
+            name: `${products[random10].name}`,
+            description: 'Lorem ipsum dolor sit amet consectetur, adipisicin',
+            weight: `${products[random10].weight}`,
+            // images: 'https://s1.1zoom.me/big0/503/Strawberry_Berry_Closeup_490344.jpg',
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/dai7hljsg/image/upload/v1663857186/market/ppfzk4ocnwvziwldgl1q.jpg',
+                    filename: 'market/ppfzk4ocnwvziwldgl1q',
+                }
+            ],
+            price,
+            geometry: { "type" : "Point", "coordinates" : [ 35.93333, 31.95 ] },
+            brand: 'Country Farm',
+            rating: `${products[rate].rating}`,
+            category: `${products[cate].category}`,
+
+        })
+        await camp.save();
+    }
+}
+seedProducts().then(() => {
+        mongoose.connection.close()
+})
+
 // const seedProducts = [
 //     { 
 //         name: "Apple", 
@@ -101,29 +134,3 @@ mongoose.connect('mongodb://localhost:27017/shoppingMarket')
 //         console.log(e);
 //     })
 
-
-
-const seedProducts = async () => {
-    await Product.deleteMany({});
-    for (let i = 0; i < 20; i++) {
-        const random10 = Math.floor(Math.random() * 20);
-        const price = Math.floor(Math.random() * 30) + 10;
-        const rate = Math.floor(Math.random() * 6) + 1;
-        const cate = Math.floor(Math.random() * 4) + 1;
-        const camp = new Product({
-            name: `${products[random10].name}`,
-            description: 'Lorem ipsum dolor sit amet consectetur, adipisicin',
-            weight: `${products[random10].weight}`,
-            images: 'https://s1.1zoom.me/big0/503/Strawberry_Berry_Closeup_490344.jpg',
-            price,
-            brand: 'Country Farm',
-            rating: `${products[rate].rating}`,
-            category: `${products[cate].category}`,
-
-        })
-        await camp.save();
-    }
-}
-seedProducts().then(() => {
-        mongoose.connection.close()
-})

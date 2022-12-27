@@ -1,3 +1,12 @@
+.cart svg {
+    color:rgb(108, 108, 108);
+    margin-right: 12px;
+}
+.cart svg:hover {
+    color:rgb(255, 255, 255);
+}
+
+
 li .dropdown-item {
     display: unset;
 }
@@ -52,3 +61,35 @@ ul .dropdown-menu {
     list-style-type: none;
     padding-left: 0rem;
 }
+
+.accordion-body li span {
+    font-weight: bold;
+    list-style:none;
+    color: #787878;
+}
+.accordion-body li {
+    list-style:none;
+}
+
+/*Cart styles from codesandbox  */
+
+.dropdown-menu .cart {
+    min-width: 250px;
+    padding: 15px 25px 0;
+  }
+  
+  .dropdown-menu .cart .row > div {
+    padding: 0 0 10px 0;
+  }
+  
+  .dropdown-menu .cart .totalPrice{
+    font-size: 120%;
+    font-weight: bold;
+    padding: 15px 0;
+  }
+  
+  .cart.page {
+    padding: 25px 0;
+  }
+
+  /*  */
